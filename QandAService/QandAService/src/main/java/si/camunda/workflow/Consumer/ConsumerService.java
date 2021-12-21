@@ -16,6 +16,9 @@ import java.util.List;
 @Service
 public class ConsumerService {
 
+    //Consumes messages from QACategorization
+
+
     private static final String EXCHANGE_NAME = "direct-answer-exchange";
     private static String bindingKey = "answer";
 
@@ -42,6 +45,8 @@ public class ConsumerService {
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), "UTF-8");
             System.out.println(" [3] Received '" + delivery.getEnvelope().getRoutingKey() + "':'" +  message + "'");
+
+
         };
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
     }
