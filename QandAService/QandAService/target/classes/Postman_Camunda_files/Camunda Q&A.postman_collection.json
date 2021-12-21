@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "2cb3a428-2b1f-4e35-ba8c-713348d36c15",
+		"name": "Camunda Q&A",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Camunda POST first message",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"messageName\" : \"QuestionPosted\",\r\n    \"businessKey\" : \"1\",\r\n    \"processVariables\" : {\r\n        \"question\" : {\"value\" : \"This is a question posted to Q&A\", \"type\" : \"String\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/engine-rest/message",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Response to Q&A",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"messageName\" : \"SupportKnows\",\r\n    \"businessKey\" : \"1\",\r\n    \"processVariables\" : {\r\n        \"question\" : {\"value\" : \"We know this shit\", \"type\" : \"String\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/engine-rest/message",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edited question",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"messageName\" : \"QuestionEdited\",\r\n    \"businessKey\" : \"1\",\r\n    \"processVariables\" : {\r\n        \"question\" : {\"value\" : \"Do i get an answer?\", \"type\" : \"String\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/engine-rest/message",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"message"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
