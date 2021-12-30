@@ -3,7 +3,7 @@ package si.camunda.workflow;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.kafka.annotation.KafkaListener;
+
 import si.camunda.workflow.Consumer.ConsumerService;
 import si.camunda.workflow.Producer.ProducerService;
 import org.camunda.bpm.engine.RuntimeService;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 @Named
@@ -40,6 +41,14 @@ public class Question implements JavaDelegate {
 
         producerService.createQueue(question);
 
+        TimeUnit.SECONDS.sleep(5);
+
+        similarQuestionList.add(consumerService.fetchMessage());
+        logger.info(similarQuestionList.toString());
+        logger.info("Passed 5 second sleeper, with message : " + consumerService.fetchMessage());
+
+
+        execution.setVariable("answer", consumerService.fetchMessage());
     }
 /*
 

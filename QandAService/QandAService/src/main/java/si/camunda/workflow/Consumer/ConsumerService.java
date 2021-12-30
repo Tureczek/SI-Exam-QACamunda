@@ -7,7 +7,7 @@ import com.rabbitmq.client.DeliverCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.kafka.annotation.KafkaListener;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,6 +23,9 @@ public class ConsumerService {
     private static String bindingKey = "answer";
 
     private static final Logger logger = LoggerFactory.getLogger(ConsumerService.class);
+
+    static String messageFromQuestion;
+
 
     @Bean
     public static void connectQueue() throws Exception
@@ -44,10 +47,14 @@ public class ConsumerService {
         // Get notified, if a message for this receiver arrives
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), "UTF-8");
-            System.out.println(" [3] Received '" + delivery.getEnvelope().getRoutingKey() + "':'" +  message + "'");
-
+            System.out.println("Received From Cat : " + delivery.getEnvelope().getRoutingKey() + "':'" +  message + "'");
+            messageFromQuestion = message;
 
         };
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> { });
+    }
+
+    public String fetchMessage() {
+        return messageFromQuestion;
     }
 }
